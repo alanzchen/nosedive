@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}{{ user.name }} - Rate{% endblock %}
+{% block content %}
+    <body>
+    <div class="screen">
+        <div class="filter"></div>
+        <div class="menu">
+            <div class="bars"></div>
+        </div>
+        <img class="logo" src="{{ user.avatar }}"
+             alt="{{ user.name }}"/>
+        <p id="waiting" class="desc">Adding up ratings from your friends...</p>
+        <p id="final_score" class="desc" style="display: none"></p>
+        <p id="bonus" class="desc" style="display: none"></p>
+        <div class="odometer-wrapper">
+            <div class="odometer">
+                <ul class="digits">
+                    <li class="digit">
+                    <span class="cou-item">
+                      <ul>
+                        <li>9.</li>
+                        <li>0.</li>
+                        <li>1.</li>
+                        <li>2.</li>
+                        <li>3.</li>
+                        <li>4.</li>
+                        <li>5.</li>
+                        <li>6.</li>
+                        <li>7.</li>
+                        <li>8.</li>
+                        <li>9.</li>
+                        <li>0.</li>
+                      </ul>
+                    </span>
+                    </li>
+                    <li class="digit">
+                        <span class="cou-item">
+                          <ul>
+                            <li>9</li>
+                            <li>0</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>0</li>
+                          </ul>
+                        </span>
+                    </li>
+                    <li class="digit">
+                        <span class="cou-item">
+                          <ul>
+                            <li>9</li>
+                            <li>0</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>0</li>
+                          </ul>
+                        </span>
+                    </li>
+                    <li class="digit">
+                        <span class="cou-item">
+                          <ul>
+                            <li>9</li>
+                            <li>0</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>0</li>
+                          </ul>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a class="share-link">
+            <button id="share" class="signInButton" type="button" style="display: none;">Share Rating</button>
+        </a>
+        <ul class="navigation">
+            <li class="menu-share"><a class="share-link" href="#">Share your rating</a></li>
+            <li class="menu-fork-on-github"><a href="https://github.com/alanzchen/nosedive/">Fork me on Github</a></li>
+            <li class="menu-pro"><a href="https://en.wikipedia.org/wiki/Nosedive">Go <span>Pro</span></a></li>
+        </ul>
+    </div>
+{% endblock %}

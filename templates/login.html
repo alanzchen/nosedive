@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Nosedive - Inspired by Black Mirror S03E01{% endblock %}
+{% block header %}
+    {{ super() }}
+    <meta property="og:title" content="Nosedive - Inspired by Black Mirror S03E01"/>
+    <meta property="og:image" content="https://randomuser.me/api/portraits/lego/1.jpg"/>
+    <meta property="og:url" content="https://nosedive.space/"/>
+{% endblock %}
+{% block content %}
+    <body>
+    <div class="screen">
+        <login></login>
+        <div class="filter"></div>
+        <div class="menu">
+            <div class="bars"></div>
+        </div>
+        <img class="logo" src="https://randomuser.me/api/portraits/lego/1.jpg"
+             alt="You"/>
+        <p class="desc">Are you a 4.5? Find out.</p>
+        {#    <div class="signInInfo">#}
+        {#        <form>#}
+        {#            <input type="email" placeholder="Username"/>#}
+        {#            <input type="password" placeholder="Password"/>#}
+        {#        </form>#}
+        {#    </div>#}
+        <a href="/login">
+            <button class="signInButton" type="button">Sign In with Facebook</button>
+        </a>
+        <p class="note">This is an open-source parody project. <a href="https://github.com/alanzchen/nosedive/"><span>Fork me on Github</span></a>
+        </p>
+        <ul class="navigation">
+            <li class="menu-share share-home"><a href="#">Share this page!</a></li>
+            <li class="menu-fork-on-github"><a href="https://github.com/alanzchen/nosedive/">Fork me on Github</a></li>
+            <li class="menu-pro"><a href="https://en.wikipedia.org/wiki/Nosedive">Go <span>Pro</span></a></li>
+        </ul>
+    </div>
+{% endblock %}

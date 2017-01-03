@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}{{ user.name }} - {{ user.final_score[0:4] }}{% endblock %}
+{% block header %}
+    {{ super() }}
+    <meta property="og:title" content="{{ user.name }} - {{ user.final_score[0:4] }}"/>
+    <meta property="og:image" content="{{ user.avatar }}"/>
+    <meta property="og:url" content="https://nosedive.space/profile/{{ user.id }}"/>
+{% endblock %}
+{% block content %}
+    <body>
+    <div class="screen">
+        <div class="filter"></div>
+        <data id="data" score="{{ user.final_score[0:5] }}"></data>
+        <div class="menu">
+            <div class="bars"></div>
+        </div>
+        <img class="logo" src="{{ user.avatar }}"
+             alt="{{ user.name }}"/>
+        <p class="desc">{{ user.name }}</p>
+        <p id="bonus" class="desc" style="">{{ user.final_score[:3] }}<sup>{{ user.final_score[3:5] }}</sup><br>
+            <small>{{ user.bonus[:5] }} bonus points from PRIME friends.</small>
+        </p>
+        <div class="odometer-wrapper">
+            <div class="odometer">
+                <ul class="digits">
+                    <li class="digit">
+                    <span class="cou-item">
+                      <ul class="goto-{{ user.final_score[0] }}">
+                        <li>9.</li>
+                        <li>0.</li>
+                        <li>1.</li>
+                        <li>2.</li>
+                        <li>3.</li>
+                        <li>4.</li>
+                        <li>5.</li>
+                        <li>6.</li>
+                        <li>7.</li>
+                        <li>8.</li>
+                        <li>9.</li>
+                        <li>0.</li>
+                      </ul>
+                    </span>
+                    </li>
+                    <li class="digit">
+                        <span class="cou-item">
+                          <ul class="goto-{{ user.final_score[2] }}">
+                            <li>9</li>
+                            <li>0</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>0</li>
+                          </ul>
+                        </span>
+                    </li>
+                    <li class="digit">
+                        <span class="cou-item">
+                          <ul class="goto-{{ user.final_score[3] }}">
+                            <li>9</li>
+                            <li>0</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>0</li>
+                          </ul>
+                        </span>
+                    </li>
+                    <li class="digit">
+                        <span class="cou-item">
+                          <ul class="goto-{{ user.final_score[4] }}">
+                            <li>9</li>
+                            <li>0</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>0</li>
+                          </ul>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a href="{{ url_for("login") }}">
+            <button id="share" class="signInButton" type="button">Get Yours</button>
+        </a>
+        <p class="note">This is an open-source parody project. <a href="https://github.com/alanzchen/nosedive/"><span>Fork me on Github</span></a>
+        </p>
+        <ul class="navigation">
+            <div class="fb-share-button"></div>
+            <li class="menu-share"><a href="{{ url_for("login") }}">Get Yours</a></li>
+            {% if recalculate %}
+                <li id="recalculate" class="menu-recalculate"><a href="{{ url_for("remove_entry", user_id=user.id) }}">Recalculate</a>
+                </li>
+            {% endif %}
+            <li class="menu-fork-on-github"><a href="https://github.com/alanzchen/nosedive/">Fork me on Github</a></li>
+            <li class="menu-pro"><a href="https://en.wikipedia.org/wiki/Nosedive">Go <span>Pro</span></a></li>
+        </ul>
+    </div>
+{% endblock %}
