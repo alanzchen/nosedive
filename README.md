@@ -23,5 +23,5 @@ The main front-end is taken from Ahmed Tarek (http://codepen.io/ahmedtarek2134/p
 
 The odometer is taken from Benjamin (http://codepen.io/maggiben/pen/nmIso)
 
-Everything else is licensed under MIT License unless stated elsewhere.
+Everything else is licensed under GPLv3 License unless stated elsewhere.
 
