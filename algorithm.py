@@ -43,7 +43,7 @@ class User(db.Model):
             print info
         self.locale = info["locale"]
         self.reaction_count = 0
-        self.timezone = info["locale"]
+        self.timezone = info["timezone"]
         self.gender = info["gender"]
         self.currency = info["currency"]["user_currency"]
         self.avatar = fb(token, "me", "picture?redirect=0")["data"]["url"]
