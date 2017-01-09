@@ -13,7 +13,7 @@ See the implementation in `algorithm.py`.
 
 ## Privacy
 
-You can check `algorithm.py` to see what data does it store in the database.
+You can check `algorithm.py` to see attributes it stores in the database.
 
 If you have any concern, there is a way to remove your data: simply call `/remove/your_id` with a valid access token and your data will be removed from the database.
 
