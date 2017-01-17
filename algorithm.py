@@ -2,6 +2,8 @@ import requests
 from math import log
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import hashlib
+
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -14,7 +16,8 @@ query_count = 0
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, unique=True, primary_key=True)
+    id = db.Column(db.Integer, unique=True)
+    hash_id = db.Column(db.String(80), unique=True, primary_key=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     name = db.Column(db.String(120))
@@ -32,8 +35,10 @@ class User(db.Model):
         if not user_id:
             info = fb(token, "me", info_query)
             self.id = info["id"]
+            self.hash_id = md5(info["id"])
         else:
             self.id = user_id
+            self.hash_id = md5(user_id)
             info = fb(token, str(user_id), info_query)
         try:
             self.name = info["first_name"] + " " + info["last_name"]
@@ -64,11 +69,13 @@ class User(db.Model):
         for post in posts:
             reactions += self.get_reactions(post["id"])
             self.reaction_count += len(reactions)
+            print("Base score updated to:" + str(self.reaction_count))
         self.get_bonus(reactions)
         n = self.reaction_count
         # The Base Score
         self.naive_score = log(n * 10 + 20, 10) - 0.3
         self.final_score = self.naive_score + self.bonus
+        print("The user's final score:" + str(self.final_score))
         return self.naive_score, self.bonus, self.final_score
 
     def get_posts(self):
@@ -109,3 +116,7 @@ def fb(token, first, second=""):
     response = requests.get(query)
     query_count += 1
     return response.json()
+
+
+def md5(user_id):
+    return hashlib.md5(str(user_id)).hexdigest()

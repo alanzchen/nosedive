@@ -111,7 +111,9 @@
                 </li>
             {% endif %}
             <li class="menu-fork-on-github"><a href="https://github.com/alanzchen/nosedive/">Fork me on Github</a></li>
-            <li class="menu-pro"><a href="https://en.wikipedia.org/wiki/Nosedive">Go <span>Pro</span></a></li>
+            {% if anon %}
+            <li class="menu-pro"><a href="{{ url_for("go_anon", user_id=user.id) }}">Go <span>Anon</span></a></li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

@@ -1,6 +1,8 @@
 from flask import redirect, url_for, session, request, render_template, jsonify
 from flask_oauth import OAuth
+from random import randint
 from algorithm import User, app, db, fb
+import hashlib
 
 DEBUG = True
 oauth = OAuth()
@@ -51,7 +53,8 @@ def facebook_authorized(resp):
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
     try:
-        user = User.query.get(user_id)
+        user = User.query.get(md5(user_id))
+        print(user)
     except:
         user = False
     if not user:
@@ -71,7 +74,48 @@ def profile(user_id):
                     recalculate = True
             except:
                 pass
-        return render_template("profile.html", user=user, recalculate=recalculate)
+        return render_template("profile.html", user=user, recalculate=recalculate, anon=True)
+
+
+@app.route('/anon/<user_id_hash>')
+def anon_profile(user_id_hash):
+    try:
+        user = User.query.get(user_id_hash)
+    except:
+        user = False
+    if not user:
+        return authorise()
+    else:
+        token = get_facebook_oauth_token()
+        recalculate = False
+        if token:
+            try:
+                visit_user_id = fb(token, "me")["id"]
+                if str(user.user_id) == visit_user_id:
+                    recalculate = True
+            except:
+                pass
+        user.first_name = "Anon"
+        user.last_name = ""
+        user.name = "Anon"
+        user.avatar = "https://randomuser.me/api/portraits/lego/" + str(randint(1, 5)) + ".jpg"
+        return render_template("profile.html", user=user, recalculate=recalculate, anon=False)
+
+
+@app.route('/go_anon/<int:user_id>')
+def go_anon(user_id):
+    token = get_facebook_oauth_token()
+    if token:
+        try:
+            visit_user_id = fb(token, "me")["id"]
+            try:
+                user = User.query.get(md5(user_id))
+            except:
+                return authorise()
+            if str(user_id) == visit_user_id:
+                return redirect("/anon/" + user.hash_id)
+        except:
+            return authorise()
 
 
 @app.route('/calculate/')
@@ -92,7 +136,6 @@ def calculate():
                        num=rounded_final*10000,
                        int=str(rounded_final)[:3], decimal=str(rounded_final)[3:])
     except:  # If anything goes wrong, reauthorise
-        raise
         return authorise()
 
 
@@ -136,22 +179,17 @@ def get_facebook_session_user_id():
         return 0
 
 
-@app.template_filter('urlencode')
-def urlencode_filter(s):
-    if type(s) == 'Markup':
-        s = s.unescape()
-    s = s.encode('utf8')
-    s = urllib.quote_plus(s)
-    return Markup(s)
-
-
 def authorise():
     return redirect(url_for('login'))
 
 
+def md5(user_id):
+    return hashlib.md5(str(user_id)).hexdigest()
+
+
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=False, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0", port="5001")
 
 
 
