@@ -14,7 +14,7 @@ facebook = oauth.remote_app('facebook',
                             consumer_key="YOUR KEY HERE",
                             consumer_secret="YOUR SECRET HERE",
                             request_token_params={
-                                'scope': 'user_likes, user_photos, user_friends, user_status, user_posts, read_insights, read_audience_network_insights, read_custom_friendlists, public_profile'}
+                                'scope': 'user_posts, public_profile'}
                             )
 
 
